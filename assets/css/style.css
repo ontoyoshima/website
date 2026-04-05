@@ -1,0 +1,266 @@
+/* 全てのページに適応 */
+html {
+    font-size: 16px;
+    font-family: sans-serif;
+    color: #FFFFFF;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0 0 0 0; /* 上右下左　0の時は単位を省略可 */
+}
+
+p, li, td {
+    line-height: 1.7; /* 文字の高さ*/
+}
+
+a:link {
+    color: #F07D34;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #F07D34;
+    text-decoration: none
+}
+
+a:hover {
+    color: #F07D34;
+    text-decoration: underline;
+}
+
+a:active {
+    color: #F07D34;
+    text-decoration: underline;
+}
+
+img {
+    max-width: 100%; /* max-width %単位ok*/
+}
+
+/* 全てのページに適用　ヘッダー */
+.header {
+    padding-top: 40px;
+    background-repeat: repeat-x; /* 横方向に繰り返す*/
+}
+
+.logo {
+    /*追加*/
+    height: 45px; /*45->85に拡張*/
+    background-color: #141C27;
+    position: relative;
+    /*追加ここまで*/
+    text-align: center;
+}
+.logo-img{
+    width: 45px;
+    height: 35px; 
+    position: absolute;
+    top: 7px;
+    left: 7px;
+}
+
+.logo-sitename{
+    color: #c8ca60;
+    font-size: 25px;
+    position: absolute;
+    top: 7px;
+    left: 55px;
+}
+
+.logo-version{
+    /*追加*/
+    color: #ed9e6d; /*#f09c68*/
+    font-size: 16px;
+    position: absolute;
+    top: 19px;
+    left: 1105px;
+
+    /*ロゴ横左に置くなら
+    top: 26px;
+    left: 55px;
+    */
+    /*追加ここまで*/
+}
+.logo-online{
+    /*追加*/
+    color: #c6c757;
+    font-size: 24px;
+    position: absolute;
+    top: 7px;
+    left: 1100px;
+    /*追加ここまで*/
+}
+
+/*
+8/15追加 
+.logo-under{
+    height: 40px;
+    background-color: #141C27;
+    position: relative;
+}
+*/
+
+/* nav */
+.nav{
+    background-color: #12121c;
+    border-top: 1.5px solid#525644;
+    border-bottom: 3px solid#525644;
+}
+
+.nav ul {
+    /*追加*/
+    height: 1px;
+    font-size: 20px; 
+    align-items: center;
+    /*追加ここまで*/
+    margin: 30px; /*縦幅30px*/
+    padding: 0;
+    list-style-type: none; /* 箇条書きの・を変更するプロパティ */
+
+    display: flex; /* 横一列に並べる奴。直近の親要素のスタイルに記述する*/
+    justify-content: center; /* 中央揃え */
+    gap: 40px; /* フレックスボックスで文字間隔を設定する*/ 
+}
+
+.nav a:link {
+    color: #867f12;
+}
+
+.nav a:visited {
+    color: #867f12;/*837f0a*/
+}
+
+.nav a:hover{
+    text-decoration: none;
+}
+
+.nav a:active{
+    text-decoration: none;
+}
+
+/*5.14追加 指が乗ったら色が変わるようになると尚良い。あとは背景の色を付けよう。サイズ調整も*/
+.nav ul li ul{
+    position: absolute;
+    top: -1000px;
+}
+
+.nav ul li:hover ul {
+    top: 75px;
+}
+/*ここまで*/
+
+/* 全てのページに適応　ヒーロー*/
+.hero {
+    padding: 137px 0; /* 背景画像を大きく表示する為*/
+    background-repeat: no-repeat;/* 背景画像は初期状態が縦横繰り返しになっている。繰り返しを無くす*/
+    background-position: center; /* 背景画像の基点のデフォは左上。それを変更する*/
+    background-size: cover; /* 背景画像をボックスに画像を合わせる（画像全体が映らない可能性有り）
+    　　　　　　　　　　　　　　　contain; 背景画像の全体を表示させる*/
+    color: #FFFFFF;
+    text-align: center; /* 文字を左右真ん中に寄せる*/
+    
+}
+
+.hero.index { /* heroクラスかつindexクラスを指定*/
+    padding: 287px 0;
+    /*background-image: url();*/
+}
+
+.hero.blog{
+    font-size: 50px;
+}
+
+/* 全てのページに適応　 ボディ*/
+body{
+    /*追加*/
+    background-color: #282e46;
+    /*追加ここまで*/
+}
+
+/* 全てのページに適応 メイン*/
+main{
+    margin: 90px auto 90px auto; /* margin領域(余白みたいなイメージ)を設定　左右中央に配置*/
+    max-width: 1000px; /* 最大横幅を設定*/
+    color: #FFFFFF;
+}
+
+.mainh2 {
+    margin: 60px 0 20px 0;
+    border-bottom: 2px solid#2e476d;
+    padding: 0 0 5px 0;
+    color: #FFFFFF; /* #253958 */ /*#c8ca60 */
+    font-size: 2rem;
+    text-align: center;
+}
+
+/* 全てのページに適応　フッター*/
+.gotop {
+    text-align: right;
+}
+.copyright {
+    margin-top: 20px;
+    margin-bottom: 0;
+    padding-top: 15px;/*75*/
+    padding-bottom: 15px; /*75*/
+    background-color: #253958;
+    color: #FFFFFF;
+    text-align: left;
+}
+
+/* 個別のスタイル */
+
+/* index.html */
+
+/*追加*/
+/*.news-content{*/
+/*    overflow: scroll; !* スクロール可能にする *!*/
+/*    !*white-space: nowrap;  スクロールの方向を横にする*!*/
+/*    height: 300px;*/
+/*}*/
+/*追加ここまで*/
+
+/* blog.html */
+.sub-title{
+    font-size: 2.5rem;
+    text-align: center;
+
+}
+
+.blog-headline{
+    margin: 60px 0 20px 0;
+    border-bottom: 2px solid#2e476d;
+    padding: 0 0 5px 0;
+    color: #FFFFFF;
+    font-size: 2rem;
+    text-align: left;
+}
+
+/* モバイル端末用 */
+@media(max-width: 767px){ /* 画面サイズでスタイルを切り替える ()内が条件含む */
+    /* .nav ul{
+        flex-wrap: wrap; /* 入りきらなくなったら改行するプロパティ */
+        /* gap: 20px; */
+    /*} */ 
+    .display-none{
+        display: none;
+    }
+
+    main{
+        padding: 0 4%; /* 画像が端にくっつかないように設定。
+                          モバイル端末は画面いっぱいに表示されるので、実際は余白の割合を設定したようなもの。
+                          ※ただし、大きいスマホほど余白が大きくなるで注意 */
+    }
+    /* index.html*/
+    .hero.index{
+        padding: 28vh 0; /* vhについて 画面全体を100vhとする単位 */
+    }
+
+    /* menu.html */
+    .items{
+        grid-template-columns: 1fr 1fr;
+    }
+}

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <meta name="description" content="しがない情報科の独り言保管庫">  
+    <title>WindowsPC初期化備忘録</title>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <!-- highlight.js のCSS（テーマ） -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <!-- highlight.js 本体 --> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- 自動ハイライトを有効化 -->
+    <script>hljs.highlightAll();</script>
+</head>
+
+<body id="top">
+    <header class="header_up">
+        <div class="logo">
+            <a href="../../index.html"> 
+                <img src="../../assets/images/logo.png" alt="logo" class="logo-img">
+                <span class="logo-sitename">Web Site(仮)</span>
+            </a>
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a href="../../index.html">HOME</a></li>
+                <li class="display-none"><a href="../../index.html#news">NEWS</a></li>
+                <li><a href="../index.html">BLOG</a></li>
+                <li><a href="../../apps/index.html">APPS</a></li>
+                <!-- <li class="display-none"><a href="">CONTACT</a></li> -->
+            </ul>
+        </nav>
+    </header>
+    
+    <main> 
+        <h1>WindowsPC初期化忘備録</h1>
+        <h4>2026年1月6日</h4>
+        <p>初めてWindowsPCの初期化を行いました。次にまた初期化する際、ここを見れば済むよう忘れる前にまとめておく。他の人の参考にもなれば幸いです。もし間違い等ありましたらご指摘いただけると幸いです。</p>
+
+        <nav>
+            <ol id="mokuzi">
+                <li>
+                    <a href="blog3.html#prepare">
+                    初期化前の準備
+                    </a>
+                </li>
+                <li>
+                    <a href="blog3.html#setUp">
+                    初期化後のセットアップ
+                    </a>
+                </li>
+            </ol>
+        </nav>
+        <br>
+
+        <h2 id="prepare" class="blog-headline">初期化前の準備</h2>
+        <h3>winget exportでjsonファイルを吐き出す</h3>
+        <p>初期化後にソフトウェアを一つずつポチポチダウンロードするのは手間なのでwingetを用いる。jsonファイルを生成しwingetで読み込ませることで記載されているソフトをCLIで一括ダウンロードできる。powershell等を開く。
+            <br>コマンドは<pre><code>winget export <生成するfileのpath></code></pre>ファイルの拡張子はjson。生成したファイルは初期化後に使うのでusb等に保存しておく。また、コマンド実行後wingetにないソフトが表示されるのでコピーしておくとダウンロード漏れの可能性が減少する。wingetの詳しい説明、仕様等は<a href="https://learn.microsoft.com/ja-jp/windows/package-manager/winget/">公式ドキュメント</a>を確認。</p>
+        <br>
+        <h3>データのバックアップ</h3>
+        <p>必要なデータはクラウドやusb等に退避させておく。以下に忘れそうで忘れては不味いものを列挙しておく。</p>
+        <h3>sshキー</h3>
+        .sshのファイルごとusbメモリ等に移動させておく。wsl上にもある場合は以下のコマンドで行う。
+        <pre><code>wsl -d &lt;NAME&gt; # wslを起動する
+
+# .sshがある場所へ移動する
+# いじってなければ ~/.sshにある
+cd ~
+ls -a # .sshが出てくればok
+
+# .sshが出てきたら
+tar -cvzf ssh_backup.tar.gz .ssh
+
+# 任意の場所へコピー
+cp ssh_backup.tar.gz &lt;保存先のpath&gt;
+</code></pre>
+        <h3>wsl</h3>
+        <pre><code># バックアップをとるディストリビューション名を確認する
+
+wsl -l -v
+NAME      STATE           VERSION
+Ubuntu    Stopped         2
+</code></pre>
+        ディストリビューション名はNAMEで表示されている部分。
+        <pre><code>#バックアップをとる
+
+wsl --export &lt;fileのpath&gt;</code></pre>ファイルの拡張子は.tar。生成したtarファイルはusbメモリ等に移しておく。
+        <h3>メモ帳</h3>
+        <p>保存しないでほうちしているものは消えます。私へ、保存する癖つけましょう。</p>
+        <br>
+        <h3>ログイン済みのサービスの確認</h3>
+        <p>パスワードマネージャーに保存していない、IDやパスワードを覚えてない等のサービスがあればログインできているうちに確認し、対処しておく。</p>
+        <br>
+        <p>注)ブラウザのお気に入りやパスワード等はアカウントに紐づいていればバックアップの必要が無い。</p>
+
+        <h2 id="setUp" class="blog-headline">初期化後のセットアップ</h2>
+        <h3>wingetでソフトのダウンロード</h3>
+        <p>管理者権限でpowershell等を開き、wingetでjsonファイルを読み込ませる。<pre><code>winget import &lt;jsonのpath&gt; --accept-package-agreements</code></pre>管理者権限で実行しない場合ダウンロードの度に、許可しますか？と聞かれ(はい/いいえ)の選択が必要となる。</p>
+        <p>ソフトのダウンロードはコマンド入力後勝手に進めてくれるのでその間に別のことを行える。</p>
+        <br>
+        
+        <h3>不要なソフトの削除</h3>
+        <p>勝手に入れられているソフトの中で不要なものをアンインストールする</p>
+        <br>
+
+        <h3>ブラウザにログイン</h3>
+        <p>お気に入りやパスワード等々はブラウザのアカウントに紐づいているのでやっておく</p>
+        <br>
+
+        <h3>wslの復元</h3>
+        <pre><code># 展開 インストール先はC::/wslUbuntu/ にした
+wsl --import &lt;新しいディストリビューション名&gt; &lt;インストール先&gt; &lt;Ubuntu_backup.tarのpath&gt; --version 2
+# この操作を正しく終了しました。と表示されればok
+
+# importできているか確認
+wsl -l -v
+  NAME      STATE           VERSION
+* Ubuntu    Stopped         2
+
+# 上記のようにimportした環境がNAMEに表示されていれば成功
+
+# 現状のままでは、rootユーザで起動するため
+# 以前使っていたユーザでログインするよう設定する
+# /etc/wsl.conf へ以下の2行を追加
+
+[user]
+default=&lt;ここに以前使っていたユーザネームを入力する&gt; # &lt; &gt;は不要
+
+# wslを再起動する
+wsl --terminate Ubuntu
+
+# wslを起動して設定できているか確認する
+wsl</code></pre>
+        <br>
+        <h3>.sshを戻す</h3>
+        <p>保存してあった場所に戻す</p>
+        <pre><code># wslの.sshを戻すコマンド例
+# .sshを ~に置く場合
+cd ~
+tar -xvzf &lt;ssh_backup.tar.gzのpath&gt;</code></pre>
+        <br>
+        <h3>退避させていたデータを戻す</h3>
+    </main>
+
+    <footer>
+        <p class="copyright">&copy; ontoyoshima</p> <!-- 文字実態参照-->
+    </footer>
+
+</body>
+
+</html>
