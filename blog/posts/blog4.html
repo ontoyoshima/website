@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="しがない情報科の独り言保管庫">
+  <title>【three.js】MMDLoader.jsはr172で削除されている|Failed to resolve importの原因</title>
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <!-- highlight.js のCSS（テーマ） -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+  <!-- highlight.js 本体 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <!-- 自動ハイライトを有効化 -->
+  <script>hljs.highlightAll();</script>
+</head>
+
+<body id="top">
+  <header class="header_up">
+    <div class="logo">
+      <a href="../index.html">
+        <img src="../../assets/images/logo.png" alt="logo" class="logo-img">
+        <span class="logo-sitename">Web Site(仮)</span>
+      </a>
+    </div>
+    <nav class="nav">
+      <ul>
+        <li><a href="../../index.html">HOME</a></li>
+        <li class="display-none"><a href="../index.html#news">NEWS</a></li>
+        <li><a href="../index.html">BLOG</a></li>
+        <li><a href="../../apps/index.html">APPS</a></li>
+        <!-- <li class="display-none"><a href="">CONTACT</a></li> -->
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>【three.js】MMDLoader.jsはr172で削除されている</h1>
+    <h4>07月03日</h4>
+    <p><a
+        href="https://github.com/mrdoob/three.js/releases/tag/r172">three.js(r172)のrelease</a>に記載があるようにMMDを動かすのに使用するMMDLoaderはr172で削除されています。そのため、r173以降で従来通りにインポートしようとすると、次のようなエラーが発生するかと思います。
+    </p>
+    <pre><code>
+        Pre-transform error: Failed to resolve import "three/examples/jsm/loaders/MMDLoader.js" from
+        "src/components/MmdViewer.tsx". Does the file exist?
+      </code></pre>
+    <p>また、私がr170で試した際には、コンソールに次の警告が表示されました。</p>
+    <pre><code>
+        MMDLoader.js:89 THREE.MMDLoader: The module has been deprecated and will be removed with r172. Please migrate to
+        https://github.com/takahirox/three-mmd-loader instead.
+      </code></pre>
+    <p>
+      警告の内容は、「MMDLoaderは非推奨であり、r172で削除されるため、<a
+        href="https://github.com/takahirox/three-mmd-loader">three-mmd-loader</a>へ移行してください」ということになります。ただし、私が確認した時点では、three-mmd-loaderのrepositoryにはREADME以外の実装は見当たらず、Issueで1年前に「いつ利用できるようになるのか」という質問に対して、repositoryの作者が「Hopefully
+      soon」と回答されている程度でした。その後、Issueには別の開発者がr171のMMDLoaderを基に改修したライブラリについて投稿していました。
+    </p>
+    <p>
+      そのため、three.jsでMMD動かそうと考えている場合、そういったプロジェクトを活用したりthree.jsをr172以前のバージョンで使う等になりそうです。
+    </p>
+    <p>
+      私が調べた限りでは、r172でMMDLoaderが削除され使えなくなっていることを明記している日本語サイトは見つけられなかったので、blogとして書く意義を感じ、備忘録を兼ねてここに書いた次第です。私と同じようにweb上でMMDモデルを表示しようとthree.jsを試したものの、原因が分からず困っている方の参考になれば幸いです。
+    </p>
+  </main>
+
+  <footer>
+    <p class="copyright">&copy; ontoyoshima</p> <!-- 文字実態参照-->
+  </footer>
+
+</body>
+
+</html>
